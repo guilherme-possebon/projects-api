@@ -3,7 +3,7 @@
     "target": "es2022",
     "module": "node16",
     "moduleResolution": "node16",
-    "rootDir": "./src/",
+    "rootDir": "api",
     "outDir": "./dist/",
     "removeComments": true,
     "noEmitOnError": true,
@@ -22,10 +22,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-  ]
+  "include": ["api/**/*.ts"],
+  "exclude": ["node_modules"]
 }

@@ -57,12 +57,12 @@ export class NoteController {
         week,
       });
 
-      res.status(200).json({ message: "Caiu" });
-      return;
+      res.status(200).json({ message: newNote });
 
       const response = await noteRepo.save(newNote);
 
-      console.log(response);
+      res.status(200).json({ message2: response });
+      return;
     } catch (error) {
       res.status(500).json({ success: false, error: error });
       return;

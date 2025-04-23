@@ -1,43 +1,32 @@
 {
-  "name": "projects-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "project-api",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only api/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "clean": "rm -rf dist"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/guilherme-possebon/projects-api.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/guilherme-possebon/projects-api/issues"
-  },
-  "homepage": "https://github.com/guilherme-possebon/projects-api#readme",
-  "devDependencies": {
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.14.1",
-    "@vercel/node": "^4.0.0",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.8.3"
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/uuid": "^10.0.0",
     "bcryptjs": "^3.0.2",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.1",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "pg": "^8.14.1",
+    "next": "15.3.1",
+    "pg": "^8.15.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "reflect-metadata": "^0.2.2",
-    "serverless-http": "^3.2.0",
     "typeorm": "^0.3.22",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20.17.30",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.1",
+    "typescript": "^5"
   }
 }

@@ -1,29 +1,27 @@
-import { Request, Response } from "express";
-import { AppDataSource } from "../data-source";
-import { Note } from "../entities/Note";
-import { Week } from "../entities/Week";
+import { NextApiRequest, NextApiResponse } from "next";
+import { getDataSource } from "@/lib/database"; // Adjust path
+import { Note } from "@/entities/Note"; // Adjust path
+import { Week } from "@/entities/Week"; // Adjust path
 import { LessThanOrEqual, MoreThanOrEqual } from "typeorm";
 
-const noteRepo = AppDataSource.getRepository(Note);
-const weekRepo = AppDataSource.getRepository(Week);
-
 export class NoteController {
-  async index(req: Request, res: Response) {
+  async index(req: NextApiRequest, res: NextApiResponse) {
     res.status(200).json({ message: "Note creation endpoint" });
-    return;
   }
 
-  async store(req: Request, res: Response) {
+  async store(req: NextApiRequest, res: NextApiResponse) {
     const { title, note } = req.body;
 
     if (!title || !note) {
-      res
-        .status(400)
-        .json({ success: false, error: "All fields are required." });
+      res.status(400).json({ success: false, error: "All fields are required." });
       return;
     }
 
     try {
+      const dataSource = await getDataSource();
+      const noteRepo = dataSource.getRepository(Note);
+      const weekRepo = dataSource.getRepository(Week);
+
       const currentDate = new Date();
 
       let week = await weekRepo.findOne({
@@ -60,15 +58,16 @@ export class NoteController {
       await noteRepo.save(newNote);
 
       res.status(200).json({ success: true, note: newNote });
-      return;
-    } catch (e) {
-      res.status(500).json({ success: false, error: e });
-      return;
+    } catch (error) {
+      res.status(500).json({ success: false, error });
     }
   }
 
-  async currentWeek(req: Request, res: Response) {
+  async currentWeek(req: NextApiRequest, res: NextApiResponse) {
     try {
+      const dataSource = await getDataSource();
+      const weekRepo = dataSource.getRepository(Week);
+
       const week = await weekRepo.findOne({
         where: {
           start_date: LessThanOrEqual(new Date()),
@@ -77,18 +76,21 @@ export class NoteController {
         relations: ["notes"],
         order: { notes: { created_at: "DESC" } },
       });
+
       if (!week) {
         res.status(404).json({ success: false, error: "Week not found" });
         return;
       }
+
       res.status(200).json({ success: true, week });
     } catch (error) {
       console.error("Error in currentWeek:", error);
       res.status(500).json({ success: false, error: "Internal server error" });
     }
   }
-  async getWeekById(req: Request, res: Response) {
-    const id = parseInt(req.params.id);
+
+  async getWeekById(req: NextApiRequest, res: NextApiResponse) {
+    const id = parseInt(req.query.id as string);
 
     if (isNaN(id)) {
       res.status(400).json({ success: false, error: "Invalid week ID" });
@@ -96,6 +98,9 @@ export class NoteController {
     }
 
     try {
+      const dataSource = await getDataSource();
+      const weekRepo = dataSource.getRepository(Week);
+
       const week = await weekRepo.findOne({
         where: { id },
         relations: ["notes"],
@@ -107,19 +112,20 @@ export class NoteController {
       }
 
       res.status(200).json({ success: true, week });
-      return;
-    } catch (e) {
-      res.status(500).json({ success: false, error: e });
-      return;
+    } catch (error) {
+      res.status(500).json({ success: false, error });
     }
   }
 
-  async getAllWeeks(req: Request, res: Response) {
+  async getAllWeeks(req: NextApiRequest, res: NextApiResponse) {
     try {
+      const dataSource = await getDataSource();
+      const weekRepo = dataSource.getRepository(Week);
+
       const weeks = await weekRepo.find({ order: { start_date: "ASC" } });
       res.status(200).json({ success: true, weeks });
-    } catch (e) {
-      res.status(500).json({ success: false, error: e });
+    } catch (error) {
+      res.status(500).json({ success: false, error });
     }
   }
 }

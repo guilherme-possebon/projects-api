@@ -1,5 +1,12 @@
+// entities/Debug.ts
 import {
-  Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinColumn,
 } from "typeorm";
 import { User } from "./User";
 
@@ -14,9 +21,9 @@ export class Debug {
   @Column("text")
   debug_content: string;
 
-  @ManyToOne(() => User, (user) => user.debugs)
+  @ManyToOne(() => User, (user: any) => user.debugs)
   @JoinColumn({ name: "user_id" })
-  user: User;
+  user: any;
 
   @CreateDateColumn()
   created_at: Date;

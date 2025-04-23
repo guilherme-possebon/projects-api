@@ -4,11 +4,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  Timestamp,
   ManyToOne,
   JoinColumn,
 } from "typeorm";
 import { Week } from "./Week";
+import "reflect-metadata";
 
 @Entity("notes")
 export class Note {

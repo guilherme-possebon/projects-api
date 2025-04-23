@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { Note } from "./Note";
+import "reflect-metadata";
 
 @Entity("weeks")
 export class Week {

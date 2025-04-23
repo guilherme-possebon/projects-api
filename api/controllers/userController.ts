@@ -7,10 +7,6 @@ import { v4 as uuidv4 } from "uuid";
 const repo = AppDataSource.getRepository(User);
 
 export class UserController {
-  async index(req: Request, res: Response) {
-    res.json({ message: "User creation endpoint" });
-  }
-
   async store(req: Request, res: Response) {
     const { name, email, password, password_confirmation } = req.body;
 
@@ -85,37 +81,6 @@ export class UserController {
     }
 
     res.json({ user });
-    return;
-  }
-
-  async update(req: Request, res: Response) {
-    const { id } = req.params;
-    const { name, email } = req.body;
-
-    const user = await repo.findOneBy({ id: Number(id) });
-    if (!user) {
-      res.status(404).json({ error: "User not found." });
-      return;
-    }
-
-    user.name = name || user.name;
-    user.email = email || user.email;
-
-    await repo.save(user);
-    res.json({ success: true });
-    return;
-  }
-
-  async destroy(req: Request, res: Response) {
-    const { id } = req.params;
-    const result = await repo.delete(id);
-
-    if (result.affected === 0) {
-      res.status(404).json({ error: "User not found." });
-      return;
-    }
-
-    res.json({ success: true });
     return;
   }
 }

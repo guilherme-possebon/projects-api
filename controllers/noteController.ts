@@ -59,7 +59,7 @@ export class NoteController {
 
       const response = await noteRepo.save(newNote);
 
-      res.status(200).json({ success: true, note: response });
+      res.status(201).json({ success: true, note: response });
       return;
     } catch (error) {
       res.status(500).json({ success: false, error: error });

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getDataSource } from "@/lib/database"; // Adjust path
-import { Note } from "@/entities/Note"; // Adjust path
-import { Week } from "@/entities/Week"; // Adjust path
+import { getDataSource } from "@/lib/database";
+import { Note } from "@/entities/Note";
+import { Week } from "@/entities/Week";
 import { LessThanOrEqual, MoreThanOrEqual } from "typeorm";
 
 export class NoteController {
@@ -13,7 +13,9 @@ export class NoteController {
     const { title, note } = req.body;
 
     if (!title || !note) {
-      res.status(400).json({ success: false, error: "All fields are required." });
+      res
+        .status(400)
+        .json({ success: false, error: "All fields are required." });
       return;
     }
 
@@ -59,7 +61,7 @@ export class NoteController {
 
       res.status(200).json({ success: true, note: newNote });
     } catch (error) {
-      res.status(500).json({ success: false, error });
+      res.status(500).json({ success: false, error: error });
     }
   }
 

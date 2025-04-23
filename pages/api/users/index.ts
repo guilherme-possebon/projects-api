@@ -5,11 +5,12 @@ const controller = new UserController();
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse
 ) {
   if (req.method === "POST") {
     await controller.store(req, res);
   } else {
     res.status(405).json({ message: "Method Not Allowed" });
+    return;
   }
 }

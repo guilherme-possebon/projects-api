@@ -5,7 +5,7 @@ const controller = new DebugController();
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse
 ) {
   if (req.method === "GET") {
     await controller.index(req, res);
@@ -13,5 +13,6 @@ export default async function handler(
     await controller.store(req, res);
   } else {
     res.status(405).json({ message: "Method Not Allowed" });
+    return;
   }
 }

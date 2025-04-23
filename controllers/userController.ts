@@ -22,12 +22,14 @@ export class UserController {
       await repo.save(user);
 
       res.json({ success: true });
+      return;
     } catch (error) {
       console.error(error);
       res.status(500).json({
         success: false,
         error: "There was an error while saving the user.",
       });
+      return;
     }
   }
 
@@ -38,8 +40,10 @@ export class UserController {
 
       const users = await repo.find();
       res.json({ users });
+      return;
     } catch (error) {
-      res.status(500).json({ error: "Error fetching users", message: error});
+      res.status(500).json({ error: "Error fetching users", message: error });
+      return;
     }
   }
 
@@ -57,6 +61,7 @@ export class UserController {
     const user = await repo.findOne({ where: { name } });
 
     res.json({ exists: !!user });
+    return;
   }
 
   async show(req: NextApiRequest, res: NextApiResponse) {
@@ -78,5 +83,6 @@ export class UserController {
     }
 
     res.json({ user });
+    return;
   }
 }

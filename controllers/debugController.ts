@@ -34,6 +34,7 @@ export class DebugController {
     });
 
     res.status(200).json({ debugReports });
+    return;
   }
 
   async store(req: NextApiRequest, res: NextApiResponse): Promise<void> {
@@ -65,12 +66,14 @@ export class DebugController {
       }
 
       res.status(201).json({ message: "Debug saved" });
+      return;
     } catch (error) {
       console.error("Failed to save debug", {
         error,
         request: req.body,
       });
       res.status(500).json({ message: "Failed to save debug" });
+      return;
     }
   }
 }

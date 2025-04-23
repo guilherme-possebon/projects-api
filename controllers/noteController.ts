@@ -7,6 +7,7 @@ import { LessThanOrEqual, MoreThanOrEqual } from "typeorm";
 export class NoteController {
   async index(req: NextApiRequest, res: NextApiResponse) {
     res.status(200).json({ message: "Note creation endpoint" });
+    return;
   }
 
   async store(req: NextApiRequest, res: NextApiResponse) {
@@ -32,7 +33,6 @@ export class NoteController {
           end_date: MoreThanOrEqual(currentDate),
         },
       });
-
       if (!week) {
         const dayOfWeek = currentDate.getDay();
         const daysSinceSunday = dayOfWeek === 0 ? 0 : dayOfWeek;
@@ -60,8 +60,10 @@ export class NoteController {
       await noteRepo.save(newNote);
 
       res.status(200).json({ success: true, note: newNote });
+      return;
     } catch (error) {
       res.status(500).json({ success: false, error: error });
+      return;
     }
   }
 
@@ -85,9 +87,11 @@ export class NoteController {
       }
 
       res.status(200).json({ success: true, week });
+      return;
     } catch (error) {
       console.error("Error in currentWeek:", error);
       res.status(500).json({ success: false, error: "Internal server error" });
+      return;
     }
   }
 
@@ -114,8 +118,10 @@ export class NoteController {
       }
 
       res.status(200).json({ success: true, week });
+      return;
     } catch (error) {
       res.status(500).json({ success: false, error });
+      return;
     }
   }
 
@@ -126,8 +132,10 @@ export class NoteController {
 
       const weeks = await weekRepo.find({ order: { start_date: "ASC" } });
       res.status(200).json({ success: true, weeks });
+      return;
     } catch (error) {
       res.status(500).json({ success: false, error });
+      return;
     }
   }
 }

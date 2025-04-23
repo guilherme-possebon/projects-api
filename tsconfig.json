@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "module": "node16",
-    "moduleResolution": "node16",
+    "target": "es2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "rootDir": "api",
     "outDir": "./dist/",
     "removeComments": true,

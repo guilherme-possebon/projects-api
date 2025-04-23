@@ -1,28 +1,24 @@
-import express, { Request, Response, NextFunction } from "express";
-import serverless from "serverless-http";
+import "dotenv/config";
+import express from "express";
+import { AppDataSource } from "./data-source";
+import userRouter from "./routes/user.route";
+import debugRouter from "./routes/debug.routes";
+import noteRouter from "./routes/note.routes";
 
-const app = express();
+async function bootstrap() {
+  await AppDataSource.initialize();
 
-app.use(express.json());
+  const app = express();
+  app.use(express.json());
 
-// Error-handling middleware
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
-  res.status(500).json({ error: "Something went wrong!" });
-});
+  app.use("/user", userRouter);
+  app.use("/note", noteRouter);
+  app.use("/debug", debugRouter);
 
-app.get("/api", (req: Request, res: Response) => {
-  res.status(200).json({
-    message: "Hello from the TypeScript API!",
-    timestamp: new Date().toISOString(),
-  });
-});
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () =>
+    console.log(`🚀 Server running on http://localhost:${PORT}`)
+  );
+}
 
-app.post("/api", (req: Request, res: Response) => {
-  const { name } = req.body as { name?: string };
-  res.status(200).json({
-    message: `Hello, ${name || "Guest"}!`,
-  });
-});
-
-export const handler = serverless(app);
+bootstrap().catch(console.error);

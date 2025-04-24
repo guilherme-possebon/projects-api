@@ -29,7 +29,7 @@ export class DebugController {
 
       const debugReports = await repoDebug.find({
         where: { user: { id: user.id } },
-        order: { created_at: "DESC" },
+        order: { id: "DESC" },
         take: 20,
       });
 

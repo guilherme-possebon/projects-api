@@ -33,7 +33,6 @@ export class NoteController {
           end_date: MoreThanOrEqual(currentDate),
         },
       });
-
       if (!week) {
         const dayOfWeek = currentDate.getDay();
         const daysSinceSunday = dayOfWeek === 0 ? 0 : dayOfWeek;
@@ -62,8 +61,8 @@ export class NoteController {
       res.status(201).json({ success: true, note: newNote });
       return;
     } catch (error) {
-      console.error("error:", error);
-      res.status(500).json({ success: false, error });
+      console.log("error: ", error);
+      res.status(500).json({ success: false, error: error });
       return;
     }
   }
@@ -79,18 +78,13 @@ export class NoteController {
           end_date: MoreThanOrEqual(new Date()),
         },
         relations: ["notes"],
+        order: { notes: { created_at: "DESC" } },
       });
 
       if (!week) {
         res.status(404).json({ success: false, error: "Week not found" });
         return;
       }
-
-      // Ordenar notas manualmente depois de carregadas
-      week.notes = week.notes.sort(
-        (a, b) =>
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      );
 
       res.status(200).json({ success: true, week });
       return;
@@ -122,11 +116,6 @@ export class NoteController {
         res.status(404).json({ success: false, error: "Week not found" });
         return;
       }
-
-      week.notes = week.notes.sort(
-        (a, b) =>
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      );
 
       res.status(200).json({ success: true, week });
       return;

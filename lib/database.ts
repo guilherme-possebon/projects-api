@@ -29,7 +29,7 @@ export async function getDataSource(): Promise<DataSource> {
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     entities: [Note, User, Week, Debug],
-    synchronize: process.env.NODE_ENV !== "production",
+    synchronize: false,
     ssl: true,
     extra: {
       ssl: {

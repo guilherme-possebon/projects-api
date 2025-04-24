@@ -13,12 +13,17 @@ export async function getDataSource(): Promise<DataSource> {
     return appDataSource;
   }
 
-  console.log("Initializing new DataSource with entities:", [
-    Note.name,
-    User.name,
-    Week.name,
-    Debug.name,
-  ]);
+  const entities = [
+    { name: "Note", entity: Note },
+    { name: "User", entity: User },
+    { name: "Week", entity: Week },
+    { name: "Debug", entity: Debug },
+  ];
+
+  console.log(
+    "Initializing new DataSource with entities:",
+    entities.map((e) => e.name)
+  );
 
   appDataSource = new DataSource({
     type: "postgres",

@@ -61,7 +61,8 @@ export class NoteController {
       res.status(201).json({ success: true, note: newNote });
       return;
     } catch (error) {
-      res.status(404).json({ success: false, error: error });
+      console.log("error: ", error);
+      res.status(500).json({ success: false, error: error });
       return;
     }
   }

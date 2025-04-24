@@ -25,13 +25,15 @@ export class UserController {
       });
 
       await repo.save(user);
-      res.json({ success: true });
+      res.status(201).json({ success: true });
+      return;
     } catch (error) {
       console.error(error);
       res.status(500).json({
         success: false,
         error: "There was an error while saving the user.",
       });
+      return;
     }
   }
 
@@ -41,9 +43,11 @@ export class UserController {
       const repo = dataSource.getRepository(User);
 
       const users = await repo.find();
-      res.json({ users });
+      res.status(200).json({ users });
+      return;
     } catch (error) {
       res.status(500).json({ error: "Error fetching users", message: error });
+      return;
     }
   }
 
@@ -63,11 +67,13 @@ export class UserController {
       const repo = dataSource.getRepository(User);
 
       const user = await repo.findOne({ where: { name } });
-      res.json({ exists: !!user });
+      res.status(200).json({ exists: !!user });
+      return;
     } catch (error) {
       res
         .status(500)
         .json({ error: "Error verifying username", message: error });
+      return;
     }
   }
 
@@ -93,9 +99,11 @@ export class UserController {
         return;
       }
 
-      res.json({ user });
+      res.status(200).json({ user });
+      return;
     } catch (error) {
       res.status(500).json({ error: "Error fetching user", message: error });
+      return;
     }
   }
 }

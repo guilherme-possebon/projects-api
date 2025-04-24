@@ -34,9 +34,11 @@ export class DebugController {
       });
 
       res.status(200).json({ debugReports });
+      return;
     } catch (error) {
       console.error("Error retrieving debug reports:", error);
       res.status(500).json({ message: "Internal server error" });
+      return;
     }
   }
 
@@ -67,12 +69,14 @@ export class DebugController {
       await repoDebug.save(debugEntities);
 
       res.status(201).json({ message: "Debug saved" });
+      return;
     } catch (error) {
       console.error("Failed to save debug", {
         error,
         request: req.body,
       });
       res.status(500).json({ message: "Failed to save debug" });
+      return;
     }
   }
 }

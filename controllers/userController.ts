@@ -1,12 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getDataSource } from "@/lib/database"; // Adjust path
-import { User } from "@/entities/User"; // Adjust path
+import { getDataSource } from "@/lib/database";
+import { User } from "@/entities/User";
 import bcryptjs from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
 
 export class UserController {
-  async store(req: NextApiRequest, res: NextApiResponse) {
+  async store(req: NextApiRequest, res: NextApiResponse): Promise<void> {
     const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      res.status(400).json({ error: "Name, email and password are required." });
+      return;
+    }
 
     try {
       const dataSource = await getDataSource();
@@ -20,34 +25,32 @@ export class UserController {
       });
 
       await repo.save(user);
-
       res.json({ success: true });
-      return;
     } catch (error) {
       console.error(error);
       res.status(500).json({
         success: false,
         error: "There was an error while saving the user.",
       });
-      return;
     }
   }
 
-  async listAllUsers(req: NextApiRequest, res: NextApiResponse) {
+  async listAllUsers(req: NextApiRequest, res: NextApiResponse): Promise<void> {
     try {
       const dataSource = await getDataSource();
       const repo = dataSource.getRepository(User);
 
       const users = await repo.find();
       res.json({ users });
-      return;
     } catch (error) {
       res.status(500).json({ error: "Error fetching users", message: error });
-      return;
     }
   }
 
-  async verifyUserName(req: NextApiRequest, res: NextApiResponse) {
+  async verifyUserName(
+    req: NextApiRequest,
+    res: NextApiResponse
+  ): Promise<void> {
     const { name } = req.body;
 
     if (!name) {
@@ -55,16 +58,20 @@ export class UserController {
       return;
     }
 
-    const dataSource = await getDataSource();
-    const repo = dataSource.getRepository(User);
+    try {
+      const dataSource = await getDataSource();
+      const repo = dataSource.getRepository(User);
 
-    const user = await repo.findOne({ where: { name } });
-
-    res.json({ exists: !!user });
-    return;
+      const user = await repo.findOne({ where: { name } });
+      res.json({ exists: !!user });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "Error verifying username", message: error });
+    }
   }
 
-  async show(req: NextApiRequest, res: NextApiResponse) {
+  async show(req: NextApiRequest, res: NextApiResponse): Promise<void> {
     const id = parseInt(req.query.id as string);
 
     if (isNaN(id)) {
@@ -72,17 +79,23 @@ export class UserController {
       return;
     }
 
-    const dataSource = await getDataSource();
-    const repo = dataSource.getRepository(User);
+    try {
+      const dataSource = await getDataSource();
+      const repo = dataSource.getRepository(User);
 
-    const user = await repo.findOneBy({ id });
+      const user = await repo.findOne({
+        where: { id },
+        relations: ["debugs"], // Optional: include related debug reports
+      });
 
-    if (!user) {
-      res.status(404).json({ error: "User not found." });
-      return;
+      if (!user) {
+        res.status(404).json({ error: "User not found." });
+        return;
+      }
+
+      res.json({ user });
+    } catch (error) {
+      res.status(500).json({ error: "Error fetching user", message: error });
     }
-
-    res.json({ user });
-    return;
   }
 }

@@ -21,9 +21,9 @@ export class Debug {
   @Column("text")
   debug_content: string;
 
-  @ManyToOne(() => User, (user: any) => user.debugs)
+  @ManyToOne(() => User, (user) => user.debugs)
   @JoinColumn({ name: "user_id" })
-  user: any;
+  user: User;
 
   @CreateDateColumn()
   created_at: Date;

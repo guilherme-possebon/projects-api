@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { NoteController } from "@/controllers/noteController";
+import { NoteController } from "@/pages/api/controllers/noteController";
 
 const controller = new NoteController();
 

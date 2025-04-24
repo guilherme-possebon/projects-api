@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getDataSource } from "@/pages/api/lib/database";
-import { User } from "@/pages/api/entities/User";
+import { getDataSource } from "@/lib/database";
+import { User } from "@/entities/User";
 import bcryptjs from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
 

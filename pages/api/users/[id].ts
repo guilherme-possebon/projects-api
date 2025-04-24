@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { UserController } from "@/pages/api/controllers/userController";
+import { UserController } from "@/controllers/userController";
 
 const controller = new UserController();
 

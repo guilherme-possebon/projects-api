@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { DebugController } from "@/pages/api/controllers/debugController";
+import { DebugController } from "@/controllers/debugController";
 
 const controller = new DebugController();
 

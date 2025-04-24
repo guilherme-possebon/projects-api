@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getDataSource } from "@/pages/api/lib/database";
-import { Debug } from "@/pages/api/entities/Debug";
-import { User } from "@/pages/api/entities/User";
+import { getDataSource } from "@/lib/database";
+import { Debug } from "@/entities/Debug";
+import { User } from "@/entities/User";
 
 type DebugReportPayload = {
   debug_title: string;

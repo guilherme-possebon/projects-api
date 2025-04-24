@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getDataSource } from "@/pages/api/lib/database";
-import { Note } from "@/pages/api/entities/Note";
-import { Week } from "@/pages/api/entities/Week";
+import { getDataSource } from "@/lib/database";
+import { Note } from "@/entities/Note";
+import { Week } from "@/entities/Week";
 import { LessThanOrEqual, MoreThanOrEqual } from "typeorm";
 
 export class NoteController {

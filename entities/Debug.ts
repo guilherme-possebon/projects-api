@@ -8,6 +8,7 @@ import {
   JoinColumn,
 } from "typeorm";
 import { User } from "./User";
+import { IUser } from "@/@types/user";
 
 @Entity("debugs")
 export class Debug {
@@ -20,9 +21,9 @@ export class Debug {
   @Column("text")
   debug_content: string;
 
-  @ManyToOne(() => User, (user) => user.debugs)
+  @ManyToOne(() => User, (user: IUser) => user.debugs)
   @JoinColumn({ name: "user_id" })
-  user: User;
+  user: IUser;
 
   @CreateDateColumn()
   created_at: Date;

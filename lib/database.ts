@@ -1,4 +1,3 @@
-// lib/database.ts
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Note } from "../entities/Note";
@@ -12,6 +11,20 @@ export async function getDataSource(): Promise<DataSource> {
   if (appDataSource && appDataSource.isInitialized) {
     console.log("Returning existing DataSource");
     return appDataSource;
+  }
+
+  // Validate environment variables
+  const requiredEnvVars = [
+    "DB_HOST",
+    "DB_PORT",
+    "DB_USER",
+    "DB_PASS",
+    "DB_NAME",
+  ];
+  for (const envVar of requiredEnvVars) {
+    if (!process.env[envVar]) {
+      throw new Error(`Missing required environment variable: ${envVar}`);
+    }
   }
 
   console.log("Initializing new DataSource with entities:", [
@@ -29,13 +42,16 @@ export async function getDataSource(): Promise<DataSource> {
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     entities: [Note, User, Week, Debug],
-    synchronize: true,
-    ssl: true,
+    synchronize: process.env.NODE_ENV !== "production", // Disable in production
+    ssl:
+      process.env.NODE_ENV === "production"
+        ? { rejectUnauthorized: false }
+        : false,
     extra: {
-      ssl: {
-        rejectUnauthorized: false,
-      },
+      max: 10, // Connection pool max size for serverless
+      idleTimeoutMillis: 30000, // Close idle connections after 30s
     },
+    logging: process.env.NODE_ENV !== "production", // Enable logging in development
   });
 
   try {
@@ -51,3 +67,11 @@ export async function getDataSource(): Promise<DataSource> {
     throw error;
   }
 }
+
+// Optional: Cleanup DataSource on process exit
+process.on("SIGTERM", async () => {
+  if (appDataSource && appDataSource.isInitialized) {
+    await appDataSource.destroy();
+    console.log("DataSource destroyed");
+  }
+});

@@ -1,4 +1,5 @@
 // entities/User.ts
+import { IDebug } from "@/@types/debug";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -35,6 +36,6 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Debug, (debug: Debug) => debug.user)
-  debugs: Debug[];
+  @OneToMany(() => Debug, (debug: IDebug) => debug.user)
+  debugs: IDebug[];
 }

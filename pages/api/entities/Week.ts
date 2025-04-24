@@ -27,5 +27,5 @@ export class Week {
   end_date: Date;
 
   @OneToMany(() => Note, (note) => note.week)
-  notes: any[];
+  notes: Note[];
 }

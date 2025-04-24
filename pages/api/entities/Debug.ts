@@ -22,7 +22,7 @@ export class Debug {
 
   @ManyToOne(() => User, (user) => user.debugs)
   @JoinColumn({ name: "user_id" })
-  user: any;
+  user: User;
 
   @CreateDateColumn()
   created_at: Date;

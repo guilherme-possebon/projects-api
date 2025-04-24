@@ -4,8 +4,14 @@ import { Note } from "../entities/Note";
 import { User } from "../entities/User";
 import { Week } from "../entities/Week";
 import { Debug } from "../entities/Debug";
+import { getMetadataArgsStorage } from "typeorm";
 
-let appDataSource: DataSource | null = null;
+let appDataSource: DataSource;
+
+const metadata = getMetadataArgsStorage();
+for (const table of metadata.tables) {
+  Object.defineProperty(table.target, "name", { value: table.name });
+}
 
 export async function getDataSource(): Promise<DataSource> {
   if (appDataSource && appDataSource.isInitialized) {

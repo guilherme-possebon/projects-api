@@ -29,5 +29,5 @@ export class Note {
 
   @ManyToOne(() => Week, (week) => week.notes)
   @JoinColumn({ name: "week_id" })
-  week: Week;
+  week: unknown;
 }

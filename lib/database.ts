@@ -15,10 +15,10 @@ export async function getDataSource(): Promise<DataSource> {
   }
 
   console.log("Initializing new DataSource with entities:", [
-    Note,
-    User,
-    Week,
-    Debug,
+    Note.name,
+    User.name,
+    Week.name,
+    Debug.name,
   ]);
 
   appDataSource = new DataSource({
@@ -39,8 +39,12 @@ export async function getDataSource(): Promise<DataSource> {
   });
 
   try {
+    console.log("Attempting DataSource initialization...");
     await appDataSource.initialize();
-    console.log("Database connected successfully");
+    console.log(
+      "Database connected successfully, entities:",
+      appDataSource.entityMetadatas.map((m) => m.name)
+    );
     return appDataSource;
   } catch (error) {
     console.error("Error initializing database:", error);

@@ -35,6 +35,6 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Debug, (debug) => debug.user)
+  @OneToMany(() => Debug, (debug: Debug) => debug.user)
   debugs: Debug[];
 }

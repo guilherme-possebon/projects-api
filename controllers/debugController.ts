@@ -63,7 +63,7 @@ export class DebugController {
       }
 
       const debugEntities = reports.map((report) =>
-        repoDebug.create({ ...report, user })
+        repoDebug.create({ ...report, user: user as User })
       );
 
       await repoDebug.save(debugEntities);

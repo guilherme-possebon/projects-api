@@ -1,4 +1,3 @@
-// entities/Debug.ts
 import {
   Entity,
   PrimaryGeneratedColumn,

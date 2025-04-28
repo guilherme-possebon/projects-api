@@ -83,7 +83,8 @@ export class NoteController {
       });
 
       if (!week) {
-        res.status(404).json({ success: false, error: "Week not found" });
+        console.log("Week not found");
+        res.status(204).json({ success: false, error: "Week not found" });
         return;
       }
 

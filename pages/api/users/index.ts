@@ -1,12 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { UserController } from "@/controllers/userController";
+import { withCors } from "@/lib/withCors";
 
 const controller = new UserController();
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     await controller.store(req, res);
   } else {
@@ -14,3 +12,5 @@ export default async function handler(
     return;
   }
 }
+
+export default withCors(handler);

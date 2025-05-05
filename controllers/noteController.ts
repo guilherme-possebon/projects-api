@@ -83,8 +83,7 @@ export class NoteController {
       });
 
       if (!week) {
-        console.log("Week not found");
-        res.status(204).json({ success: false, error: "Week not found" });
+        res.status(204).end();
         return;
       }
 
@@ -132,7 +131,7 @@ export class NoteController {
       const dataSource = await getDataSource();
       const weekRepo = dataSource.getRepository(Week);
 
-      const weeks = await weekRepo.find({ order: { start_date: "ASC" } });
+      const weeks = await weekRepo.find({ order: { start_date: "DESC" } });
       res.status(200).json({ success: true, weeks });
       return;
     } catch (error) {

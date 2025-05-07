@@ -89,7 +89,8 @@ export class NoteController {
       const dataSource = await getDataSource();
       const noteRepo = dataSource.getRepository(Note);
 
-      const response = await noteRepo.save({ id: id, title, note });
+      const response = await noteRepo.update(id, { title, note });
+
       console.log(response);
 
       res.status(200).json({ success: true, note: response });

@@ -71,6 +71,8 @@ export class NoteController {
   async update(req: NextApiRequest, res: NextApiResponse) {
     const { id, title, note } = req.body;
 
+    console.log(id, title, note);
+
     if (!id) {
       res.status(400).json({
         success: false,

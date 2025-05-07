@@ -68,6 +68,39 @@ export class NoteController {
     }
   }
 
+  async update(req: NextApiRequest, res: NextApiResponse) {
+    const { id, title, note } = req.body;
+
+    if (!id) {
+      res.status(400).json({
+        success: false,
+        error: "Id not provided",
+      });
+    }
+    if (!title || !note) {
+      res.status(400).json({
+        success: false,
+        error: "All fields are required.",
+      });
+      return;
+    }
+
+    try {
+      const dataSource = await getDataSource();
+      const noteRepo = dataSource.getRepository(Note);
+
+      const response = await noteRepo.save({ id: id, title, note });
+      console.log(response);
+
+      res.status(200).json({ success: true, note: response });
+      return;
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ success: false, error: error });
+      return;
+    }
+  }
+
   async currentWeek(req: NextApiRequest, res: NextApiResponse) {
     try {
       const dataSource = await getDataSource();

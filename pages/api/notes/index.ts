@@ -9,6 +9,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     await controller.index(req, res);
   } else if (req.method === "POST") {
     await controller.store(req, res);
+  } else if (req.method === "PUT") {
+    await controller.update(req, res);
   } else {
     res.status(405).json({ message: "Method Not Allowed" });
     return;

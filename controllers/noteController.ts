@@ -123,7 +123,7 @@ export class NoteController {
         return;
       }
 
-      /*  await noteRepo.remove(note); */
+      await noteRepo.remove(note);
 
       res
         .status(200)

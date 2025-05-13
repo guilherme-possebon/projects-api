@@ -104,6 +104,38 @@ export class NoteController {
     }
   }
 
+  async delete(req: NextApiRequest, res: NextApiResponse) {
+    const id = parseInt(req.query.id as string);
+
+    if (isNaN(id)) {
+      res.status(400).json({ success: false, error: "Invalid note ID" });
+      return;
+    }
+
+    try {
+      const dataSource = await getDataSource();
+      const noteRepo = dataSource.getRepository(Note);
+
+      const note = await noteRepo.findOneBy({ id });
+
+      if (!note) {
+        res.status(404).json({ success: false, error: "Note not found" });
+        return;
+      }
+
+      await noteRepo.remove(note);
+
+      res
+        .status(200)
+        .json({ success: true, message: "Note deleted successfully" });
+      return;
+    } catch (error) {
+      console.error("Error deleting note:", error);
+      res.status(500).json({ success: false, error: "Internal server error" });
+      return;
+    }
+  }
+
   async currentWeek(req: NextApiRequest, res: NextApiResponse) {
     try {
       const dataSource = await getDataSource();

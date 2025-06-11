@@ -1,124 +1,77 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-import { GetStaticProps } from "next";
-import fs from "fs";
-import path from "path";
+"use client";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+interface DebugReport {
+  id: number;
+  debug_title: string;
+  debug_content: string;
+}
 
-type Route = {
-  path: string;
-  description: string;
-};
+const API_URL = "https://project-api-woad.vercel.app/api";
 
-export const getStaticProps: GetStaticProps<{ routes: Route[] }> = async () => {
-  const pagesDir = path.join(process.cwd(), "pages");
-  const routes: Route[] = [];
+export default function Home() {
+  const [debugs, setDebugs] = useState<DebugReport[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  function scanRoutes(dir: string, basePath: string = "") {
-    const files = fs.readdirSync(dir);
-    files.forEach((file) => {
-      const fullPath = path.join(dir, file);
-      const stat = fs.statSync(fullPath);
+  useEffect(() => {
+    const fetchDebugs = async () => {
+      const params = new URLSearchParams(window.location.search);
+      const email = params.get("email");
 
-      if (stat.isDirectory()) {
-        // Recurse into subdirectories
-        scanRoutes(fullPath, `${basePath}/${file}`);
-      } else if (file.match(/\.(js|ts|jsx|tsx)$/)) {
-        // Skip special files (e.g., _app.ts, _document.ts)
-        if (file.startsWith("_")) return;
-
-        let route = `${basePath}/${file.replace(/\.(js|ts|jsx|tsx)$/, "")}`;
-        // Convert index to root path
-        route = route.replace(/\/index$/, "") || "/";
-        // Convert dynamic segments (e.g., [id] to :id)
-        route = route.replace(/\[([^\]]+)\]/g, ":$1");
-
-        // Infer HTTP methods and description based on route patterns
-        const description = route.includes(":")
-          ? `Manage resource by ID`
-          : route === "/api/hello"
-          ? "Simple hello world endpoint"
-          : route.includes("week")
-          ? `Manage ${route.includes("weeks") ? "weeks" : "weekly notes"}`
-          : `Manage ${route.split("/").pop() || "resources"}`;
-
-        routes.push({ path: route, description });
+      if (!email) {
+        setError("Email não fornecido");
+        return;
       }
-    });
-  }
 
-  try {
-    scanRoutes(pagesDir);
-    // Sort routes alphabetically for consistency
-    routes.sort((a, b) => a.path.localeCompare(b.path));
-  } catch (error) {
-    console.error("Error scanning routes:", error);
-  }
+      try {
+        console.log(API_URL);
+        const response = await axios.get(`${API_URL}/debug?email=${email}`);
+        setDebugs(response.data.debugReports);
+      } catch (err) {
+        console.error(err);
+        setError("Falha ao acessar a API externa");
+      }
+    };
 
-  return { props: { routes } };
-};
+    fetchDebugs();
+  }, []);
 
-export default function Home({ routes }: { routes: Route[] }) {
   return (
-    <>
-      <Head>
-        <title>API Routes Documentation - Next.js App</title>
-        <meta
-          name="description"
-          content="Documentation of all API routes in the Next.js application"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div
-        className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}
-      >
-        <main className={styles.main}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js logo"
-            width={180}
-            height={38}
-            priority
-          />
-          <h1>API Routes Documentation</h1>
-          <p>
-            Below is a list of all available API routes in the application,
-            their supported HTTP methods, and a brief description.
-          </p>
-
-          <table className={styles.routesTable}>
-            <thead>
-              <tr>
-                <th>Route</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {routes.map((route, index) => (
-                <tr key={index}>
-                  <td>
-                    <code>{route.path}</code>
-                  </td>
-                  <td>{route.description}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </main>
-      </div>
-    </>
+    <div className="bg-[#121212] text-[#7D57D0] flex justify-center items-center min-h-screen p-6">
+      {error ? (
+        <div className="bg-[#EF5350] text-[#FFFFFF] p-4 rounded-lg shadow">
+          Erro: {error}
+        </div>
+      ) : debugs ? (
+        debugs.length > 0 ? (
+          <div className="flex flex-col gap-6 w-11/12 md:w-3/4 mt-8">
+            {debugs.map((debug) => (
+              <div
+                key={debug.id}
+                className="bg-[#1A1A1A] p-6 md:p-8 rounded-2xl border border-[#6F3DE4] shadow-2xl"
+              >
+                <div className="flex justify-between items-center mb-4 md:mb-6">
+                  <h1 className="text-xl md:text-3xl font-bold text-[#6A4BC7]">
+                    {debug.debug_title}
+                  </h1>
+                  <p className="text-sm text-[#8AB4F8]">#{debug.id}</p>
+                </div>
+                <p className="text-base md:text-lg leading-relaxed break-words text-[#A29EA8]">
+                  {debug.debug_content}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-[#66BB6A] text-[#FFFFFF] p-4 rounded-lg shadow">
+            Nenhum registro de debug encontrado.
+          </div>
+        )
+      ) : (
+        <p className="text-[#6A4BC7]">Carregando...</p>
+      )}
+    </div>
   );
 }

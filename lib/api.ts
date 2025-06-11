@@ -1,4 +1,4 @@
-import { NotesResponse, WeeksResponse } from "@/types";
+import { NotesResponse, WeeksResponse } from "@/types/index.js";
 import axios, { AxiosError } from "axios";
 
 const API_URL = "https://project-api-woad.vercel.app/api";

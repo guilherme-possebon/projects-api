@@ -1,14 +1,20 @@
-import Carousel from "@/components/Carousel.jsx";
-import NotesList from "@/components/NotesList.jsx";
-import WeekFilter from "@/components/WeekFilter.jsx";
-import { getCurrentWeek } from "@/lib/api.js";
+import Carousel from "@/components/Carousel";
+import NotesList from "@/components/NotesList";
+import WeekFilter from "@/components/WeekFilter";
+import { getCurrentWeek } from "@/lib/api";
+import { Week } from "@/types";
 
 export default async function NotesListPage() {
   const data = await getCurrentWeek();
-  const week =
-    data && data.success
+  const week: Week =
+    data && data.success && data.week
       ? data.week
-      : { id: null, start_date: null, end_date: null, notes: [] };
+      : {
+          id: null,
+          start_date: null,
+          end_date: null,
+          notes: [],
+        };
 
   return (
     <div className="px-4 py-10 max-w-6xl mx-auto">

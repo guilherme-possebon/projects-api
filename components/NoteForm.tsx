@@ -1,6 +1,6 @@
 "use client";
 
-import { createNote } from "@/lib/api.js";
+import { createNote } from "@/lib/api";
 import { useState, useRef, useEffect } from "react";
 import Swal from "sweetalert2";
 

@@ -1,5 +1,5 @@
 /* Import Tailwind CSS v4 */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Define custom properties for theme colors */
 :root {
@@ -24,7 +24,7 @@
 
 /* Apply default body styles using theme colors */
 body {
-  @apply bg-[--color-background] text-[--color-text];
+  @apply bg-(--color-background) text-(--color-text);
 }
 
 /* Define keyframes for animations */

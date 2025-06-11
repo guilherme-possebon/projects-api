@@ -1,4 +1,4 @@
-import NoteForm from "@/components/NoteForm.jsx";
+import NoteForm from "@/components/NoteForm";
 
 export default function NotesPage() {
   return (

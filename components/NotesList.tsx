@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { ptBR } from "date-fns/locale";
 import { formatWithOptions } from "date-fns/fp";
 import Swal from "sweetalert2";
-import { Note } from "@/entities/Note.js";
+import { Note } from "@/types";
 
 interface NotesListProps {
   notes: Note[];
@@ -91,7 +91,7 @@ export default function NotesList({
               <details
                 key={note.id}
                 className="bg-cardBackground rounded-lg p-5 mb-4 shadow-md border border-border hover:border-primary transition-all duration-200"
-                data-date={note.created_at.toISOString().split("T")[0]}
+                data-date={note.created_at.split("T")[0]}
               >
                 <summary className="cursor-pointer text-xl font-semibold text-text flex justify-between items-center">
                   {note.title}

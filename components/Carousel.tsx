@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { subWeeks } from "date-fns";
 import Swal from "sweetalert2";
-import { Week } from "@/entities/Week.js";
-import { getWeekById } from "@/lib/api.js";
+import { getWeekById } from "@/lib/api";
+import { Week } from "@/types";
 
 interface CarouselProps {
   currentWeek: Week;
@@ -64,8 +64,6 @@ export default function Carousel({ currentWeek, onWeekChange }: CarouselProps) {
       });
     }
   };
-
-  SurplusSec();
 
   const handlePrev = () => {
     if (currentIndex > 0) {
@@ -156,7 +154,4 @@ export default function Carousel({ currentWeek, onWeekChange }: CarouselProps) {
       </button>
     </div>
   );
-}
-function SurplusSec() {
-  throw new Error("Function not implemented.");
 }

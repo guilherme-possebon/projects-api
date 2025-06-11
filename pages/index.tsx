@@ -58,7 +58,7 @@ export default function Home() {
                   </h3>
                   <p className="text-sm text-link">#{debug.id}</p>
                 </div>
-                <p className="text-base md:text-lg leading-relaxed text-placeholder">
+                <p className="text-base md:text-lg leading-relaxed text-placeholder break-words whitespace-pre-wrap">
                   {debug.debug_content}
                 </p>
               </div>

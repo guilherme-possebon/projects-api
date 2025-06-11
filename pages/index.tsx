@@ -1,7 +1,7 @@
 "use client";
 
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface DebugReport {
   id: number;
@@ -39,9 +39,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-[#121212] text-[#7D57D0] flex justify-center items-center min-h-screen p-6">
+    <div className="bg-background text-text flex justify-center items-center min-h-screen p-6">
       {error ? (
-        <div className="bg-[#EF5350] text-[#FFFFFF] p-4 rounded-lg shadow">
+        <div className="bg-error text-white p-4 rounded-lg shadow">
           Erro: {error}
         </div>
       ) : debugs ? (
@@ -50,27 +50,27 @@ export default function Home() {
             {debugs.map((debug) => (
               <div
                 key={debug.id}
-                className="bg-[#1A1A1A] p-6 md:p-8 rounded-2xl border border-[#6F3DE4] shadow-2xl"
+                className="bg-cardBackground p-6 md:p-8 rounded-lg border border-border shadow-md"
               >
                 <div className="flex justify-between items-center mb-4 md:mb-6">
-                  <h1 className="text-xl md:text-3xl font-bold text-[#6A4BC7]">
+                  <h3 className="text-xl md:text-3xl font-bold text-primary">
                     {debug.debug_title}
-                  </h1>
-                  <p className="text-sm text-[#8AB4F8]">#{debug.id}</p>
+                  </h3>
+                  <p className="text-sm text-link">#{debug.id}</p>
                 </div>
-                <p className="text-base md:text-lg leading-relaxed break-words text-[#A29EA8]">
+                <p className="text-base md:text-lg leading-relaxed text-placeholder">
                   {debug.debug_content}
                 </p>
               </div>
             ))}
           </div>
         ) : (
-          <div className="bg-[#66BB6A] text-[#FFFFFF] p-4 rounded-lg shadow">
+          <div className="bg-success text-white p-4 rounded-lg shadow">
             Nenhum registro de debug encontrado.
           </div>
         )
       ) : (
-        <p className="text-[#6A4BC7]">Carregando...</p>
+        <p className="text-primary">Carregando...</p>
       )}
     </div>
   );

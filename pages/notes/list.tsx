@@ -1,36 +1,29 @@
-import Carousel from "@/components/Carousel";
+"use client";
+
+import { useState, useEffect } from "react";
 import NotesList from "@/components/NotesList";
-import WeekFilter from "@/components/WeekFilter";
 import { getCurrentWeek } from "@/lib/api";
 import { Week } from "@/types";
+export default function NotesListPage() {
+  const [week, setWeek] = useState<Week>({
+    id: null,
+    start_date: null,
+    end_date: null,
+    notes: [],
+  });
 
-export default async function NotesListPage() {
-  const data = await getCurrentWeek();
-  const week: Week =
-    data && data.success && data.week
-      ? data.week
-      : {
-          id: null,
-          start_date: null,
-          end_date: null,
-          notes: [],
-        };
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getCurrentWeek();
+      if (data && data.success && data.week) {
+        setWeek(data.week);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="px-4 py-10 max-w-6xl mx-auto">
-      <Carousel
-        currentWeek={week}
-        onWeekChange={() => {
-          // Client-side handling
-        }}
-      />
-      <WeekFilter
-        start="monday"
-        end="friday"
-        onFilterChange={() => {
-          // Client-side handling
-        }}
-      />
       <NotesList
         notes={week.notes}
         start="monday"

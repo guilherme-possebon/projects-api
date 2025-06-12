@@ -25,6 +25,7 @@ export const createNote = async (title: string, note: string) => {
 export const getCurrentWeek = async () => {
   try {
     const response = await api.get<NotesResponse>("/notes/week");
+    console.log(response.data);
     return response.data;
   } catch (error) {
     handleApiError(error, "Failed to fetch current week");

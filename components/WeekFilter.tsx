@@ -43,96 +43,93 @@ export default function WeekFilter({
   };
 
   return (
-    <form className="bg-cardBackground rounded-2xl p-6 mb-10 flex flex-wrap md:flex-nowrap gap-6 items-end justify-center shadow-md border border-divider">
+    <form className="bg-[#1a1a1a] rounded-2xl p-6 mb-10 flex flex-wrap md:flex-nowrap gap-6 items-end justify-center shadow-md border border-[#4d2d9d]">
       <div className="flex flex-col items-center w-full sm:w-auto">
-        <label htmlFor="start" className="text-sm font-semibold text-text mb-2">
+        <label
+          htmlFor="start"
+          className="text-sm font-semibold text-[#7d57d0] mb-2"
+        >
           Início da semana
         </label>
         <div className="relative w-full sm:w-48">
           <button
             type="button"
             onClick={() => setIsStartOpen(!isStartOpen)}
-            className="bg-cardBackground border border-border text-text px-4 py-2 rounded-lg flex items-center justify-between w-full hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200"
+            className="bg-[#1a1a1a] border border-[#6f3de4] text-[#7d57d0] px-4 py-2 rounded-lg flex items-center justify-between w-full hover:bg-[#2d195c] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#6a4bc7] transition-colors duration-200"
           >
             <span>{days.find((d) => d.value === startDay)?.label}</span>
             <svg
               className="w-4 h-4 ml-2"
-              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
-              viewBox="0 0 10 6"
+              viewBox="0 0 24 24"
+              stroke="#8ab4f8"
             >
               <path
-                stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="m1 1 4 4 4-4"
+                d="M19 9l-7 7-7-7"
               />
             </svg>
           </button>
           {isStartOpen && (
-            <div className="absolute z-20 mt-2 w-full bg-cardBackground border border-border rounded-lg shadow-xl animate-fadeIn">
-              <ul className="py-1 text-sm text-text">
-                {days.map((day) => (
-                  <li key={day.value}>
-                    <button
-                      type="button"
-                      className="w-full px-4 py-2 text-left hover:bg-primary hover:text-white transition-colors duration-200"
-                      onClick={() => handleSelectStart(day.value)}
-                    >
-                      {day.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ul className="absolute z-10 mt-2 w-full bg-[#1a1a1a] border border-[#6f3de4] rounded-lg shadow-md">
+              {days.map((day) => (
+                <li
+                  key={day.value}
+                  onClick={() => handleSelectStart(day.value)}
+                  className="px-4 py-2 text-[#a29ea8] hover:bg-[#2d195c] hover:text-white cursor-pointer transition-all duration-150"
+                >
+                  {day.label}
+                </li>
+              ))}
+            </ul>
           )}
         </div>
       </div>
+
       <div className="flex flex-col items-center w-full sm:w-auto">
-        <label htmlFor="end" className="text-sm font-semibold text-text mb-2">
+        <label
+          htmlFor="end"
+          className="text-sm font-semibold text-[#7d57d0] mb-2"
+        >
           Fim da semana
         </label>
         <div className="relative w-full sm:w-48">
           <button
             type="button"
             onClick={() => setIsEndOpen(!isEndOpen)}
-            className="bg-cardBackground border border-border text-text px-4 py-2 rounded-lg flex items-center justify-between w-full hover:bg-secondary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200"
+            className="bg-[#1a1a1a] border border-[#6f3de4] text-[#7d57d0] px-4 py-2 rounded-lg flex items-center justify-between w-full hover:bg-[#2d195c] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#6a4bc7] transition-colors duration-200"
           >
             <span>{days.find((d) => d.value === endDay)?.label}</span>
             <svg
               className="w-4 h-4 ml-2"
-              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
-              viewBox="0 0 10 6"
+              viewBox="0 0 24 24"
+              stroke="#8ab4f8"
             >
               <path
-                stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="m1 1 4 4 4-4"
+                d="M19 9l-7 7-7-7"
               />
             </svg>
           </button>
           {isEndOpen && (
-            <div className="absolute z-20 mt-2 w-full bg-cardBackground border border-border rounded-lg shadow-xl animate-fadeIn">
-              <ul className="py-1 text-sm text-text">
-                {days.map((day) => (
-                  <li key={day.value}>
-                    <button
-                      type="button"
-                      className="w-full px-4 py-2 text-left hover:bg-primary hover:text-white transition-colors duration-200"
-                      onClick={() => handleSelectEnd(day.value)}
-                    >
-                      {day.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ul className="absolute z-10 mt-2 w-full bg-[#1a1a1a] border border-[#6f3de4] rounded-lg shadow-md">
+              {days.map((day) => (
+                <li
+                  key={day.value}
+                  onClick={() => handleSelectEnd(day.value)}
+                  className="px-4 py-2 text-[#a29ea8] hover:bg-[#2d195c] hover:text-white cursor-pointer transition-all duration-150"
+                >
+                  {day.label}
+                </li>
+              ))}
+            </ul>
           )}
         </div>
       </div>

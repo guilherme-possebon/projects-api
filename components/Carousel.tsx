@@ -58,9 +58,9 @@ export default function Carousel({ currentWeek, onWeekChange }: CarouselProps) {
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
-        background: "bg-background",
-        color: "text-toastText",
-        iconColor: "text-error",
+        background: "#121212",
+        color: "#ffffff",
+        iconColor: "#ef5350",
       });
     }
   };
@@ -91,12 +91,8 @@ export default function Carousel({ currentWeek, onWeekChange }: CarouselProps) {
 
   return (
     <div className="mx-auto mb-12 mt-12 relative max-w-4xl">
-      <div
-        id="title-carousel"
-        className="relative h-16 overflow-hidden rounded-lg shadow-md bg-cardBackground border border-divider"
-      >
+      <div className="relative h-16 overflow-hidden rounded-lg shadow-md bg-[#1a1a1a] border border-[#4d2d9d]">
         <div
-          id="carousel-slides"
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentIndex * 33.333}%)` }}
         >
@@ -105,7 +101,7 @@ export default function Carousel({ currentWeek, onWeekChange }: CarouselProps) {
               key={index}
               className="w-1/3 flex-shrink-0 flex items-center justify-center"
             >
-              <h1 className="text-2xl md:text-3xl font-bold text-text text-center">
+              <h1 className="text-2xl md:text-3xl font-bold text-[#7d57d0] text-center">
                 {range}
               </h1>
             </div>
@@ -115,13 +111,13 @@ export default function Carousel({ currentWeek, onWeekChange }: CarouselProps) {
       <button
         onClick={handlePrev}
         disabled={currentIndex === 0}
-        className="absolute top-1/2 -left-12 transform -translate-y-1/2 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-secondary focus:ring-primary disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed transition-all duration-300"
+        className="absolute top-1/2 -left-12 transform -translate-y-1/2 bg-[#6a4bc7] text-white p-3 rounded-full shadow-lg hover:bg-[#2d195c] focus:ring-[#6a4bc7] disabled:bg-[#7a7a7a] disabled:text-[#a29ea8] disabled:cursor-not-allowed transition-all duration-300"
       >
         <svg
           className="w-6 h-6"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
-          viewBox="0 24 0 24"
+          viewBox="0 0 24 24"
           stroke="currentColor"
         >
           <path
@@ -135,13 +131,13 @@ export default function Carousel({ currentWeek, onWeekChange }: CarouselProps) {
       <button
         onClick={handleNext}
         disabled={currentIndex === 2}
-        className="absolute top-1/2 -right-12 transform -translate-y-1/2 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-secondary focus:ring-primary disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed transition-all duration-300"
+        className="absolute top-1/2 -right-12 transform -translate-y-1/2 bg-[#6a4bc7] text-white p-3 rounded-full shadow-lg hover:bg-[#2d195c] focus:ring-[#6a4bc7] disabled:bg-[#7a7a7a] disabled:text-[#a29ea8] disabled:cursor-not-allowed transition-all duration-300"
       >
         <svg
           className="w-6 h-6"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
-          viewBox="0 24 0 24"
+          viewBox="0 0 24 24"
           stroke="currentColor"
         >
           <path

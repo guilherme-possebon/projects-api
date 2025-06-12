@@ -44,9 +44,9 @@ export default function NotesList({
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
-        background: "bg-background",
-        color: "text-toastText",
-        iconColor: "text-error",
+        background: "bg-[var(--color-background)]",
+        color: "text-[var(--color-toastText)]",
+        iconColor: "text-[var(--color-error)]",
       });
       return;
     }
@@ -78,39 +78,26 @@ export default function NotesList({
   return (
     <div id="notes-container" className="max-w-4xl mx-auto">
       {Object.keys(groupedNotes).length === 0 ? (
-        <p className="text-center text-gray text-lg py-10">
+        <p className="text-center text-[var(--color-gray)] text-lg py-10">
           Nenhuma nota encontrada para o período selecionado.
         </p>
       ) : (
         Object.entries(groupedNotes).map(([day, dayNotes]) => (
           <div key={day} className="mb-10" data-day={day}>
-            <h2 className="text-2xl font-bold text-text mb-4 flex justify-between items-center capitalize border-b border-divider pb-2">
+            <h2 className="text-2xl font-bold text-[var(--color-text)] mb-4 flex justify-between items-center capitalize border-b border-[var(--color-divider)] pb-2">
               {day}
             </h2>
             {dayNotes.map((note) => (
               <details
                 key={note.id}
-                className="bg-cardBackground rounded-lg p-5 mb-4 shadow-md border border-border hover:border-primary transition-all duration-200"
+                className="bg-[var(--color-cardBackground)] rounded-lg p-5 mb-4 shadow-md border-[var(--color-border)] hover:border-[var(--color-primary)] transition-all duration-200"
                 data-date={note.created_at.split("T")[0]}
               >
-                <summary className="cursor-pointer text-xl font-semibold text-text flex justify-between items-center">
+                <summary className="cursor-pointer text-xl font-semibold text-[var(--color-text)] flex justify-between items-center">
                   {note.title}
-                  <svg
-                    className="w-5 h-5 text-text transform transition-transform duration-300 group-open:rotate-180"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
+                  {/* ícone */}
                 </summary>
-                <div className="mt-4 text-gray space-y-3">
+                <div className="mt-4 text-[var(--color-gray)] space-y-3">
                   <p className="text-base leading-relaxed">{note.note}</p>
                 </div>
               </details>

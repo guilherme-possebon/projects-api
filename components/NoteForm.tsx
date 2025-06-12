@@ -31,9 +31,9 @@ export default function NoteForm() {
         icon: "error",
         title: "Campos obrigatórios!",
         text: "Preencha tanto o título quanto a nota.",
-        background: "bg-background",
-        color: "text-white",
-        confirmButtonColor: "bg-primary",
+        background: "bg-[var(--color-background)]",
+        color: "text-[var(--color-white)]",
+        confirmButtonColor: "bg-[var(--color-primary)]",
       });
       return;
     }
@@ -48,8 +48,8 @@ export default function NoteForm() {
         title: "Nota salva com sucesso!",
         showConfirmButton: false,
         timer: 2000,
-        background: "bg-success",
-        color: "text-white",
+        background: "bg-[var(--color-success)]",
+        color: "text-[var(--color-white)]",
       });
       setTitle("");
       setNote("");
@@ -59,9 +59,9 @@ export default function NoteForm() {
         icon: "error",
         title: "Erro ao salvar nota",
         text: (error as Error).message,
-        background: "bg-background",
-        color: "text-white",
-        confirmButtonColor: "bg-primary",
+        background: "bg-[var(--color-background)]",
+        color: "text-[var(--color-white)]",
+        confirmButtonColor: "bg-[var(--color-primary)]",
       });
     } finally {
       setIsSubmitting(false);
@@ -69,15 +69,15 @@ export default function NoteForm() {
   };
 
   return (
-    <div className="w-full max-w-6xl bg-cardBackground border border-border rounded-3xl shadow-xl p-8">
-      <h1 className="text-3xl font-bold text-center text-primary mb-3">
+    <div className="w-full max-w-6xl bg-[#1a1a1a] border border-[#6f3de4] rounded-3xl shadow-xl p-8">
+      <h1 className="text-3xl font-bold text-center text-[#6a4bc7] mb-3">
         Notas
       </h1>
       <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
         <div className="flex flex-col gap-4">
           <input
             type="text"
-            className="w-full bg-cardBackground border border-border rounded-2xl p-4 shadow-lg placeholder:text-placeholder text-text focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent hover:border-primary transition-all duration-300"
+            className="w-full bg-[#1a1a1a] border border-[#6f3de4] rounded-2xl p-4 shadow-lg placeholder-[#a29ea8] text-[#7d57d0] focus:outline-none focus:ring-2 focus:ring-[#6a4bc7] focus:border-transparent hover:border-[#6a4bc7] transition-all duration-300"
             placeholder="Digite o título da nota..."
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -85,7 +85,7 @@ export default function NoteForm() {
           />
           <textarea
             ref={textareaRef}
-            className="w-full bg-cardBackground border border-border rounded-2xl p-4 shadow-lg placeholder:text-placeholder text-text focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent hover:border-primary transition-all duration-300 resize-none overflow-hidden"
+            className="w-full bg-[#1a1a1a] border border-[#6f3de4] rounded-2xl p-4 shadow-lg placeholder-[#a29ea8] text-[#7d57d0] focus:outline-none focus:ring-2 focus:ring-[#6a4bc7] focus:border-transparent hover:border-[#6a4bc7] transition-all duration-300 resize-none overflow-hidden"
             rows={1}
             placeholder="Digite sua mensagem..."
             value={note}
@@ -100,8 +100,8 @@ export default function NoteForm() {
             disabled={isSubmitting}
             className={`w-full py-3 rounded-xl font-semibold transition-all duration-300 shadow-md ${
               isSubmitting
-                ? "bg-primary opacity-50 cursor-not-allowed"
-                : "bg-primary hover:bg-secondary text-white"
+                ? "bg-[#6a4bc7] opacity-50 cursor-not-allowed"
+                : "bg-[#6a4bc7] hover:bg-[#2d195c] text-white"
             }`}
           >
             {isSubmitting ? "Salvando..." : "Salvar"}

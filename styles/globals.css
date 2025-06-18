@@ -1,30 +1,25 @@
-/* Import Tailwind CSS v4 */
 @import "tailwindcss";
 
-/* Define custom properties for theme colors */
-:root {
-  :root {
-    --color-text: #7d57d0;
-    --color-placeholder: #a29ea8;
-    --color-background: #121212;
-    --color-primary: #6a4bc7;
-    --color-secondary: #2d195c;
-    --color-border: #6f3de4;
-    --color-cardBackground: #1a1a1a;
-    --color-link: #8ab4f8;
-    --color-error: #ef5350;
-    --color-success: #66bb6a;
-    --color-danger: #f44336;
-    --color-divider: #4d2d9d;
-    --color-toastText: #ffffff;
-    --color-white: #ffffff;
-    --color-black: #000000;
-    --color-themeColor: #000000;
-    --color-gray: #7a7a7a;
-  }
+@theme {
+  --color-text: #7d57d0;
+  --color-placeholder: #a29ea8;
+  --color-background: #121212;
+  --color-primary: #6a4bc7;
+  --color-secondary: #2d195c;
+  --color-border: #6f3de4;
+  --color-cardBackground: #1a1a1a;
+  --color-link: #8ab4f8;
+  --color-error: #ef5350;
+  --color-success: #66bb6a;
+  --color-danger: #f44336;
+  --color-divider: #4d2d9d;
+  --color-toastText: #ffffff;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-themeColor: #000000;
+  --color-gray: #7a7a7a;
 }
 
-/* Define keyframes for animations */
 @keyframes slideDown {
   0% {
     max-height: 0;
@@ -45,7 +40,6 @@
   }
 }
 
-/* Define animation classes using Tailwind's apply directive */
 .animate-slideDown {
   animation: slideDown 0.5s ease-in-out;
 }

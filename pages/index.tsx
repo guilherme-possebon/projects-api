@@ -38,9 +38,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-[#121212] text-[#7d57d0] flex justify-center items-center min-h-screen p-6">
+    <div className="bg-background text-text flex justify-center items-center min-h-screen p-6">
       {error ? (
-        <div className="bg-[#ef5350] text-white p-4 rounded-lg shadow">
+        <div className="bg-danger text-white p-4 rounded-lg shadow">
           Erro: {error}
         </div>
       ) : debugs ? (
@@ -49,27 +49,27 @@ export default function Home() {
             {debugs.map((debug) => (
               <div
                 key={debug.id}
-                className="bg-[#121212] p-6 md:p-8 rounded-lg border border-[#6f3de4] shadow-md"
+                className="bg-background p-6 md:p-8 rounded-lg border border-border shadow-md"
               >
                 <div className="flex justify-between items-center mb-4 md:mb-6">
-                  <h3 className="text-xl md:text-3xl font-bold text-[#6a4bc7]">
+                  <h3 className="text-xl md:text-3xl font-bold text-primary">
                     {debug.debug_title}
                   </h3>
-                  <p className="text-sm text-[#6a4bc7]">#{debug.id}</p>
+                  <p className="text-sm text-primary">#{debug.id}</p>
                 </div>
-                <p className="text-base md:text-lg leading-relaxed text-[#7d57d0] break-words whitespace-pre-wrap">
+                <p className="text-base md:text-lg leading-relaxed text-text break-words whitespace-pre-wrap">
                   {debug.debug_content}
                 </p>
               </div>
             ))}
           </div>
         ) : (
-          <div className="bg-[#66bb6a] text-white p-4 rounded-lg shadow">
+          <div className="bg-success text-white p-4 rounded-lg shadow">
             Nenhum registro de debug encontrado.
           </div>
         )
       ) : (
-        <p className="text-[#6a4bc7]">Carregando...</p>
+        <p className="text-primary">Carregando...</p>
       )}
     </div>
   );

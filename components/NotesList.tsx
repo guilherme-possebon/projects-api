@@ -78,26 +78,26 @@ export default function NotesList({
   return (
     <div id="notes-container" className="max-w-4xl mx-auto">
       {Object.keys(groupedNotes).length === 0 ? (
-        <p className="text-center text-[var(--color-gray)] text-lg py-10">
+        <p className="text-center text-gray text-lg py-10">
           Nenhuma nota encontrada para o período selecionado.
         </p>
       ) : (
         Object.entries(groupedNotes).map(([day, dayNotes]) => (
           <div key={day} className="mb-10" data-day={day}>
-            <h2 className="text-2xl font-bold text-[var(--color-text)] mb-4 flex justify-between items-center capitalize border-b border-[var(--color-divider)] pb-2">
+            <h2 className="text-2xl font-bold text-text-text mb-4 flex justify-between items-center capitalize border-b border-divider pb-2">
               {day}
             </h2>
             {dayNotes.map((note) => (
               <details
                 key={note.id}
-                className="bg-[var(--color-cardBackground)] rounded-lg p-5 mb-4 shadow-md border-[var(--color-border)] hover:border-[var(--color-primary)] transition-all duration-200"
+                className="bg-background rounded-lg p-5 mb-4 shadow-md border-2 border-border hover:border-primary transition-all duration-200"
                 data-date={note.created_at.split("T")[0]}
               >
-                <summary className="cursor-pointer text-xl font-semibold text-[var(--color-text)] flex justify-between items-center">
+                <summary className="cursor-pointer text-xl font-semibold text-text flex justify-between items-center">
                   {note.title}
                   {/* ícone */}
                 </summary>
-                <div className="mt-4 text-[var(--color-gray)] space-y-3">
+                <div className="mt-4 text-primary space-y-3">
                   <p className="text-base leading-relaxed">{note.note}</p>
                 </div>
               </details>

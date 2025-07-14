@@ -39,9 +39,13 @@ export class LogController {
         post,
         server,
         planograma,
+        created_at: new Date(),
+        updated_at: new Date(),
       });
 
-      await repoLog.save(logEntity);
+      const resnpose = await repoLog.save(logEntity);
+
+      console.log(resnpose);
 
       res.status(201).json({ message: "Log saved" });
       return;

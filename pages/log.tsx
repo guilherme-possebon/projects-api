@@ -172,6 +172,8 @@ export default function Log() {
                               <strong>Agente:</strong>{" "}
                               {log.server?.HTTP_USER_AGENT || "(Não informado)"}
                               <br />
+                              <strong>Remote:</strong> {log.server?.REMOTE_ADDR}
+                              <br />
                               <strong>Data do Log:</strong>{" "}
                               {new Date(log.created_at).toLocaleString("pt-BR")}
                             </div>

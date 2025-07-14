@@ -153,6 +153,8 @@ export default function Log() {
                               <strong>Observação:</strong>{" "}
                               {log.planograma.observacao || "(Nenhuma)"}
                               <br />
+                              <strong>Ativo:</strong> {log.planograma.ativo}
+                              <br />
                             </div>
                             <div>
                               <strong>Empresa (CNPJ):</strong>{" "}

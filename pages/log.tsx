@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 
-const API_URL = "http://192.168.3.81:3000/api";
+const API_URL = "https://project-api-woad.vercel.app/api";
 
 interface LogEntry {
   id: number;

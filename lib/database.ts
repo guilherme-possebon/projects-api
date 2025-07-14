@@ -5,6 +5,7 @@ import { User } from "../entities/User";
 import { Week } from "../entities/Week";
 import { Debug } from "../entities/Debug";
 import { getMetadataArgsStorage } from "typeorm";
+import { Logs } from "@/entities/Log";
 
 let appDataSource: DataSource;
 
@@ -24,6 +25,7 @@ export async function getDataSource(): Promise<DataSource> {
     { name: "User", entity: User },
     { name: "Week", entity: Week },
     { name: "Debug", entity: Debug },
+    { name: "Log", entity: Logs },
   ];
 
   console.log(
@@ -38,7 +40,7 @@ export async function getDataSource(): Promise<DataSource> {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    entities: [Note, User, Week, Debug],
+    entities: [Note, User, Week, Debug, Logs],
     synchronize: false,
     ssl: true,
     extra: {

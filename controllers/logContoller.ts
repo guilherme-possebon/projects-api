@@ -3,6 +3,7 @@ import { getDataSource } from "@/lib/database";
 import { NextApiRequest, NextApiResponse } from "next";
 
 type LogPayLoad = {
+  log_title: string;
   session: JSON;
   post: JSON;
   server: JSON;
@@ -15,7 +16,8 @@ export class LogController {
       const dataSource = await getDataSource();
       const repoLog = dataSource.getRepository(Logs);
 
-      res.status(200).json({ repoLog });
+      const logs = await repoLog.find({ take: 20, order: { id: "DESC" } });
+      res.status(200).json(logs);
       return;
     } catch (error) {
       console.error("Error retrieving logs:", error);
@@ -25,12 +27,14 @@ export class LogController {
   }
 
   async store(req: NextApiRequest, res: NextApiResponse): Promise<void> {
-    const { session, post, server, planograma }: LogPayLoad = req.body;
+    const { log_title, session, post, server, planograma }: LogPayLoad =
+      req.body;
 
     try {
       const dataSource = await getDataSource();
       const repoLog = dataSource.getRepository(Logs);
       const logEntity = repoLog.create({
+        log_title,
         session,
         post,
         server,

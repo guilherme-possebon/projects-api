@@ -7,6 +7,7 @@ interface DebugReport {
   id: number;
   debug_title: string;
   debug_content: string;
+  created_at: Date;
 }
 
 const API_URL = "https://project-api-woad.vercel.app/api";
@@ -49,7 +50,7 @@ export default function Home() {
             {debugs.map((debug) => (
               <div
                 key={debug.id}
-                className="bg-background p-6 md:p-8 rounded-lg border border-border shadow-md"
+                className="bg-background p-6 md:p-8 rounded-lg border border-border shadow-md relative"
               >
                 <div className="flex justify-between items-center mb-4 md:mb-6">
                   <h3 className="text-xl md:text-3xl font-bold text-primary">
@@ -59,6 +60,16 @@ export default function Home() {
                 </div>
                 <p className="text-base md:text-lg leading-relaxed text-text break-words whitespace-pre-wrap">
                   {debug.debug_content}
+                </p>
+                <p className="text-sm text-primary text-center absolute right-6 md:right-8 bottom-6 md:bottom-8 h-[24px]">
+                  {new Date(debug.created_at).toLocaleDateString("pt-BR", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  })}
                 </p>
               </div>
             ))}
